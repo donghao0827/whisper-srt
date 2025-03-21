@@ -1,0 +1,12 @@
+openai-whisper
+numpy
+torch
+ffmpeg-python
+fastapi>=0.68.0
+uvicorn>=0.15.0
+celery>=5.2.3
+redis>=4.1.0
+pydantic>=1.8.2
+requests>=2.27.1
+python-multipart
+aiofiles 

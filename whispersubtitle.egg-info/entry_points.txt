@@ -1,0 +1,3 @@
+[console_scripts]
+whispersubtitle = whispersubtitle.main:main
+

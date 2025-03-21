@@ -1,0 +1,129 @@
+# WhisperSubtitle - 多功能字幕生成工具
+
+WhisperSubtitle是一个基于OpenAI Whisper的多功能字幕生成工具，支持音频提取、字幕生成和完整的API服务。
+
+## 特性
+
+- **音频提取**：从视频中提取音频，支持多种格式（MP3、WAV、OGG、FLAC、M4A）
+- **字幕生成**：使用OpenAI Whisper从音频生成高质量字幕，支持SRT和VTT格式
+- **硬件加速**：支持CUDA（NVIDIA GPU）和MPS（Apple Silicon）加速
+- **命令行工具**：提供方便的命令行接口，支持单文件和批量处理
+- **RESTful API**：完整的REST API接口，支持异步任务处理
+- **可定制性**：支持多种语言，可调整模型大小和字幕格式选项
+
+## 安装
+
+### 从源码安装
+
+```bash
+git clone https://github.com/example/whispersubtitle.git
+cd whispersubtitle
+pip install -e .
+```
+
+### 依赖
+
+- Python 3.8+
+- FFmpeg（用于音频处理）
+- Redis（用于API服务的任务队列，可选）
+
+## 使用方法
+
+WhisperSubtitle提供三种主要使用方式：
+
+### 1. 从视频生成字幕（命令行）
+
+```bash
+# 处理单个视频文件
+whispersubtitle subtitle single video.mp4 -m medium -l zh
+
+# 批量处理目录中的视频
+whispersubtitle subtitle batch ./videos/ -o ./subtitles/ -f srt
+```
+
+### 2. 提取音频（命令行）
+
+```bash
+# 从单个视频提取音频
+whispersubtitle audio extract video.mp4 -f mp3
+
+# 批量提取音频
+whispersubtitle audio batch ./videos/ -o ./audio/ -f wav
+```
+
+### 3. API服务
+
+启动API服务：
+
+```bash
+# 使用start.sh脚本（包含Celery工作者）
+./start.sh
+
+# 或直接启动API
+whispersubtitle api --port 8000
+```
+
+API端点使用示例：
+
+```bash
+# 提交字幕生成任务
+curl -X POST "http://localhost:8000/api/subtitle" \
+  -H "Content-Type: application/json" \
+  -d '{"media_url": "https://example.com/video.mp4", "model": "base", "language": "zh"}'
+
+# 使用本地视频ID提交字幕生成任务
+curl -X POST "http://localhost:8000/api/subtitle" \
+  -H "Content-Type: application/json" \
+  -d '{"media_key": "my_local_video", "model": "base", "language": "zh"}'
+
+# 查询任务状态
+curl "http://localhost:8000/api/subtitle/task_id"
+
+# 提取音频
+curl -X POST "http://localhost:8000/api/extract-audio" \
+  -H "Content-Type: application/json" \
+  -d '{"video_url": "https://example.com/video.mp4", "audio_format": "mp3"}'
+```
+
+## 项目结构
+
+```
+whispersubtitle/
+├── api/                # API服务模块
+│   ├── app.py          # FastAPI应用
+│   └── worker.py       # Celery任务处理器
+├── cli/                # 命令行工具模块
+│   ├── extract_audio.py # 音频提取命令行工具
+│   └── video_to_subtitle.py # 字幕生成命令行工具
+├── core/               # 核心功能模块
+│   └── generator.py    # 字幕生成核心功能
+├── config/             # 配置模块
+│   └── settings.py     # 应用配置
+├── utils/              # 工具模块
+│   └── device_utils.py # 设备相关工具函数
+└── main.py             # 主入口脚本
+```
+
+## 配置
+
+主要配置参数在 `whispersubtitle/config/settings.py` 中定义，包括：
+
+- 文件上传和结果保存路径
+- Redis连接参数
+- Celery任务队列设置
+- 允许的文件扩展名
+
+## API文档
+
+API服务启动后，可以通过以下URL访问自动生成的API文档：
+
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
+
+## 许可证
+
+MIT
+
+## 贡献
+
+欢迎贡献代码、报告问题或提出建议。 
