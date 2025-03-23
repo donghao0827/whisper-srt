@@ -20,3 +20,4 @@ whispersubtitle/core/__init__.py
 whispersubtitle/core/generator.py
 whispersubtitle/utils/__init__.py
 whispersubtitle/utils/device_utils.py
+whispersubtitle/utils/obs_storage.py

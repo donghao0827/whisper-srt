@@ -1,17 +1,33 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.4
 Name: whispersubtitle
 Version: 1.0.0
 Summary: 基于OpenAI Whisper的多功能字幕生成工具
 Home-page: https://github.com/example/whispersubtitle
 Author: WhisperSubtitle Team
 Author-email: example@example.com
-License: UNKNOWN
-Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown
+Requires-Dist: openai-whisper>=20231117
+Requires-Dist: torch>=2.0.0
+Requires-Dist: fastapi>=0.95.0
+Requires-Dist: uvicorn>=0.22.0
+Requires-Dist: celery>=5.3.0
+Requires-Dist: redis>=4.5.0
+Requires-Dist: requests>=2.28.0
+Requires-Dist: python-multipart>=0.0.6
+Requires-Dist: boto3>=1.28.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
 
 # WhisperSubtitle - 多功能字幕生成工具
 
@@ -142,4 +158,3 @@ MIT
 ## 贡献
 
 欢迎贡献代码、报告问题或提出建议。 
-
